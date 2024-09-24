@@ -1,0 +1,20 @@
+.input-box-container {
+  margin-bottom: 1rem;
+}
+
+.input-box-container .input-box {
+  width: 100%;
+  height: 200px; /* 기본 높이 설정 */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: none;
+  font-family: inherit; /* 또는 원하는 폰트 */
+  font-size: 16px; /* 필요한 폰트 크기 */
+}
+
+.input-box-container .label {
+  display: block;
+  margin-bottom: 5px;
+}

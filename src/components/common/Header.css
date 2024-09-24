@@ -1,0 +1,18 @@
+.Header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  flex-shrink: 0;
+  background: var(--gray-gray_FAFAFA, #fafafa);
+}
+
+.Header .logo {
+  width: 137px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.Header img {
+  height: 100%;
+}
