@@ -1,11 +1,12 @@
 // 검색 바 컴포넌트
 
+// label: 입력 필드의 레이블 텍스트 (그룹, 태그 혹은 제목 등)
 // handleSearch: 검색어가 변경될 때마다 호출되는 함수
 
 import "./Search.css";
 import { useState } from "react";
 
-const Search = ({ handleSearch }) => {
+const Search = ({ label, handleSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleInputChange = (e) => {
@@ -41,7 +42,7 @@ const Search = ({ handleSearch }) => {
         value={searchQuery}
         onChange={handleInputChange}
         type="text"
-        placeholder={"명을 입력해주세요."}
+        placeholder={`${label}명을 입력해주세요.`}
         className="Search-input"
       />
     </form>

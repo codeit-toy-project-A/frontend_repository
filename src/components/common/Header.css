@@ -4,7 +4,6 @@
   align-items: center;
   height: 100px;
   flex-shrink: 0;
-  background: var(--gray-gray_FAFAFA, #fafafa);
 }
 
 .Header .logo {

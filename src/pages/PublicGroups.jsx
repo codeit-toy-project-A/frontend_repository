@@ -2,7 +2,7 @@ import Like from "../components/common/Like";
 import Button from "../components/common/Button";
 import Header from "../components/common/Header";
 import Search from "../components/common/Search";
-import InputText from "../components/common/Input/InputText";
+import InputText from "../components/common/input/InputText";
 import InputImage from "../components/common/Input/InputImage";
 import InputBox from "../components/common/Input/InputBox";
 
@@ -17,8 +17,8 @@ const PublicGroups = () => {
   return (
     <>
       <Header />
-      <div>공개그룹목록</div>
-      <Search handleSearch={handleSearch} />
+      <div>임시 공개그룹목록 페이지</div>
+      <Search label="그룹" handleSearch={handleSearch} />
       <Like />
       <Button text="Click Me" size="L" onClick={handleClick} />
 

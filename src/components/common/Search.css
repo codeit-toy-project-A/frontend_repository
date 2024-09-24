@@ -19,7 +19,6 @@
 
 .Search .Search-input {
   background-color: var(--gray-gray_F4F4F4, #f4f4f4);
-  color: var(--gray-gray_B8B8B8, #b8b8b8);
   border: none;
   outline: none;
   flex: 1;
