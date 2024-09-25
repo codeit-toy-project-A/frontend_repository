@@ -3,6 +3,7 @@
   align-items: center;
   border-radius: 6px;
   padding: 5px 10px;
+  width: 100%;
   background-color: var(--gray-gray_F4F4F4, #f4f4f4);
 }
 

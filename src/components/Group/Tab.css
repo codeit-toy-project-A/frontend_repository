@@ -1,0 +1,28 @@
+.tab-container {
+  display: flex;
+  gap: 10px;
+}
+
+.tab-button {
+  padding: 5px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.tab-button.active {
+  background: var(--black-black_282828, #282828);
+}
+
+.tab-button:not(.active) {
+  background: transparent;
+  color: black;
+}
