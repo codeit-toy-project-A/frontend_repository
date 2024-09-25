@@ -24,7 +24,7 @@ const InputImage = ({ onChange }) => {
 
   return (
     <div className="input-image-container">
-      <label>대표이미지</label>
+      <label className="input-image-label">대표이미지</label>
       <div className="input-image-wrapper">
         <input
           type="text"

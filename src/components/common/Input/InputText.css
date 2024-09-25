@@ -2,14 +2,10 @@
   margin-bottom: 1rem;
 }
 
-.input-text-container .label {
-  display: block;
-  margin-bottom: 5px;
-}
-
 .input-text-container .input-text {
   width: 100%;
   padding: 10px;
+  margin-top: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;

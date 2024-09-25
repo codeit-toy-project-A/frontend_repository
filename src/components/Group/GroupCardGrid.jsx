@@ -1,11 +1,14 @@
 import "./GroupCardGrid.css";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import GroupCard from "./GroupCard";
 import Button from "../common/Button";
 
 const GroupCardGrid = ({ groups, visibleGroups, selectedTab }) => {
+  const navigate = useNavigate();
+
   const groupMakeButtonClick = () => {
-    console.log("그룹만들기");
+    navigate("/groupInsert");
   };
 
   const noGroupsMessageVisible =

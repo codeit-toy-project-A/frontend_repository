@@ -8,12 +8,14 @@ import Search from "../components/common/Search";
 import Tab from "../components/Group/Tab";
 import Dropdown from "../components/Group/Dropdown";
 import GroupCardGrid from "../components/Group/GroupCardGrid";
+import Button from "../components/common/Button";
 
 import "./PublicGroups.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // 임시 데이터 -> JSon 형식으로 서버에서 받아오려면 변경 필요
-const groupsData = Array(31)
+const groupsData = Array(51)
   .fill(null)
   .map((_, index) => ({
     imageUrl: "https://via.placeholder.com/300",
@@ -27,6 +29,8 @@ const groupsData = Array(31)
   }));
 
 const PublicGroups = () => {
+  const navigate = useNavigate();
+
   const [visibleGroups, setVisibleGroups] = useState(16);
   const [selectedTab, setSelectedTab] = useState("public");
   const [searchQuery, setSearchQuery] = useState("");
@@ -57,7 +61,7 @@ const PublicGroups = () => {
   };
 
   const groupMakeButtonClick = () => {
-    console.log("그룹만들기");
+    navigate("/groupInsert");
   };
 
   const handleTabSelect = (tab) => {
@@ -69,8 +73,11 @@ const PublicGroups = () => {
 
   return (
     <>
-      {/* <Button text={"그룹만들기"} size={"L"} onClick={groupMakeButtonClick} /> */}
       <Header />
+
+      <div className="create-group-button-container">
+        <Button text="그룹만들기" size="M" onClick={groupMakeButtonClick} />
+      </div>
 
       <div className="filter-components">
         <Tab onSelect={handleTabSelect} />

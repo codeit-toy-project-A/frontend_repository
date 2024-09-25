@@ -1,5 +1,12 @@
 body {
-  padding: 0px 250px;
+  padding: 0px 250px 30px 250px;
+}
+
+.create-group-button-container {
+  position: absolute; /* Fixes the button in the viewport */
+  top: 30px; /* Distance from the top */
+  right: 250px; /* Distance from the right */
+  z-index: 1000; /* Ensures the button is above other elements */
 }
 
 .filter-components {
@@ -22,7 +29,7 @@ body {
 
 .load-more-button {
   width: 100%;
-  padding: 15px;
+  padding: 10px;
   background-color: white;
   border: 1px solid black;
   border-radius: 10px;
