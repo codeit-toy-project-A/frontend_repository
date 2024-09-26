@@ -19,7 +19,7 @@ const InputBox = ({ label, onChange }) => {
 
   return (
     <div className="input-box-container">
-      <label>{label}</label>
+      <label className="label">{label}</label>
       <textarea
         value={value}
         onChange={handleChange}

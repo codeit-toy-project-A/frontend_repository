@@ -1,0 +1,46 @@
+body {
+  padding: 0px 250px 30px 250px;
+}
+
+.create-group-button-container {
+  position: absolute; /* Fixes the button in the viewport */
+  top: 30px; /* Distance from the top */
+  right: 250px; /* Distance from the right */
+  z-index: 1000; /* Ensures the button is above other elements */
+}
+
+.filter-components {
+  display: flex;
+  align-items: center; /* 세로 정렬 */
+  justify-content: space-between; /* 요소들 간에 공간을 동일하게 분배 */
+  gap: 20px; /* 요소 간의 간격 */
+}
+
+.filter-components .Search {
+  margin-left: 20px;
+  flex-grow: 1;
+}
+
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.load-more-button {
+  width: 100%;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.load-more-button:hover {
+  background-color: #f0f0f0;
+}
