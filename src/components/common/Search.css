@@ -1,0 +1,26 @@
+.Search {
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 5px 10px;
+  background-color: var(--gray-gray_F4F4F4, #f4f4f4);
+}
+
+.Search span {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.Search img {
+  width: 20px;
+  height: 20px;
+}
+
+.Search .Search-input {
+  background-color: var(--gray-gray_F4F4F4, #f4f4f4);
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+}

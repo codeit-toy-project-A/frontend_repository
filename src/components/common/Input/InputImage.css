@@ -1,0 +1,34 @@
+.input-image-container {
+  margin-bottom: 1rem;
+}
+
+.input-image-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.input-image-container .input-image {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin-right: 10px;
+  font-family: inherit; /* 또는 원하는 폰트 */
+  font-size: 16px; /* 필요한 폰트 크기 */
+}
+
+.input-image-container .file-upload-label {
+  width: 100px;
+  padding: 10px 15px;
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.input-image-container .file-upload-label input[type="file"] {
+  display: none; /* 숨김 */
+}
