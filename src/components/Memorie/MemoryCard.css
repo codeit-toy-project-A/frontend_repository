@@ -1,0 +1,91 @@
+.memory-card {
+  width: 300px;
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Ensures no overflow */
+  background-color: white; /* Background color */
+}
+
+.memory-card__imgdiv {
+  width: 260px;
+  height: 260px;
+  object-fit: cover;
+  object-position: center;
+  margin: 20px;
+}
+
+.memory-card__details {
+  padding: 20px; /* Padding around details */
+}
+
+.memory-card__header {
+  display: flex; /* Flexbox for alignment */
+  margin-bottom: 20px; /* Margin below header */
+}
+
+.memory-card__nickname {
+  font-size: 14px; /* Font size */
+  margin-right: 10px;
+}
+
+.memory-card__public-status {
+  color: #888; /* Gray color for public status */
+  font-size: 14px; /* Font size */
+}
+
+.memory-card__title {
+  font-size: 18px; /* Title font size */
+  margin: 10px 0; /* Margin above and below title */
+  font-weight: bold;
+}
+
+.memory-card__tags {
+  margin: 10px 0px 20px 0px; /* Margin for tags */
+}
+
+.memory-card__tag {
+  display: inline-block; /* Inline for tags */
+  margin-right: 5px; /* Space between tags */
+  color: #aaa;
+}
+
+.memory-card__etc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.memory-card__etc1 {
+  display: flex;
+  align-items: center;
+}
+
+.memory-card__location,
+.memory-card__moment {
+  font-size: 12px; /* Font size */
+  color: #555; /* Gray color */
+}
+.memory-card__location {
+  margin-right: 5px;
+}
+
+.memory-card__etc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.memory-card__etc2 {
+  font-size: 14px; /* Font size */
+  color: #777; /* Gray color for stats */
+}
+
+.memory-card__likes {
+  margin-right: 10px;
+}
+.memory-card__likes img {
+  height: 20px;
+}
+
+.memory-card__comments svg {
+  height: 20px;
+}

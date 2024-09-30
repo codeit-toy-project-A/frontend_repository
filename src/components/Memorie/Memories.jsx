@@ -1,27 +1,27 @@
-// 그룹 목록 페이지
-// 공개 / 비공개 필터링, 그룹명 검색 필터링 기능 구현
-//공개 그룹, 비공개 그룹, 데이터 없는 경우 표시
+// 그룹 상세 페이지 하단 - 해당 그룹의 추억 목록 & 목록 검색 기능 포함하는 컴포넌트
 
-import Header from "../components/common/Header";
-import Search from "../components/common/Search";
-import Tab from "../components/Group/Tab";
-import Dropdown from "../components/Group/Dropdown";
-import GroupCardGrid from "../components/Group/GroupCardGrid";
-import Button from "../components/common/Button";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import "./PublicGroups.css";
-import mockData from "../mock/PublicGroupsMockData.json";
+import React, { useState, useEffect } from "react";
+import Header from "../../components/common/Header";
+import Search from "../../components/common/Search";
+import Tab from "../../components/Group/Tab";
+import Dropdown from "../../components/Group/Dropdown";
+import MemoryCardGrid from "./MemoryCardGrid";
+import Button from "../common/Button";
+import { useNavigate, useParams } from "react-router-dom";
 
-const PublicGroups = () => {
+import mockData from "../../mock/MemoriesMockData.json";
+import "./Memories.css";
+
+const Memories = () => {
   const navigate = useNavigate();
+  const { groupId } = useParams(); // URL에서 그룹 ID 가져오기
 
   // 상태 관리
-  const [groupsData, setGroupsData] = useState([]);
+  const [memoriesData, setMemoriesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [visibleGroups, setVisibleGroups] = useState(16);
+  const [visibleMemories, setVisibleMemories] = useState(16);
   const [selectedTab, setSelectedTab] = useState("public");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("latest");
@@ -30,18 +30,18 @@ const PublicGroups = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   // API 호출 함수
-  const fetchGroups = async () => {
+  const fetchMemories = async () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://project-zogakzip-fe.vercel.app/groups?page=${currentPage}&pageSize=${visibleGroups}&sortBy=${sortBy}&keyword=${searchQuery}&isPublic=${isPublic}`
+        `https://project-zogakzip-fe.vercel.app/api/groups/${groupId}/posts?page=${currentPage}&pageSize=${visibleMemories}&sortBy=${sortBy}&keyword=${searchQuery}&isPublic=${isPublic}`
       );
 
       if (!response.ok) {
         throw new Error("데이터를 불러오는 중 오류가 발생했습니다.");
       }
       const data = await response.json();
-      setGroupsData(data.data);
+      setMemoriesData(data.data);
       setTotalPages(data.totalPages);
       setError(null);
     } catch (err) {
@@ -52,7 +52,7 @@ const PublicGroups = () => {
       console.log(
         "서버에서 데이터를 불러오지 못했습니다. mockData를 사용합니다."
       );
-      setGroupsData(mockData.data);
+      setMemoriesData(mockData.data);
       setTotalPages(mockData.totalPages || 1);
     } finally {
       setLoading(false);
@@ -61,14 +61,14 @@ const PublicGroups = () => {
 
   // 컴포넌트가 마운트될 때와 검색/필터 변경 시 데이터를 다시 불러옴
   useEffect(() => {
-    fetchGroups();
-  }, [currentPage, visibleGroups, sortBy, searchQuery, isPublic]);
+    fetchMemories();
+  }, [currentPage, visibleMemories, sortBy, searchQuery, isPublic]);
 
   // 검색 핸들러
   const handleSearch = (query) => {
     setSearchQuery(query);
     setCurrentPage(1); // 검색 시 첫 페이지로 돌아가도록 설정
-    setVisibleGroups(16); // 검색 시 visibleGroups 초기화
+    setVisibleMemories(16); // 검색 시 visibleMemories 초기화
   };
 
   // 탭 전환 핸들러
@@ -77,13 +77,12 @@ const PublicGroups = () => {
     setIsPublic(publicStatus);
     setSelectedTab(tab);
     setCurrentPage(1); // 탭 변경 시 첫 페이지로 돌아가도록 설정
-    setVisibleGroups(16); // 탭 변경 시 visibleGroups 초기화
+    setVisibleMemories(16); // 탭 변경 시 visibleMemories 초기화
   };
 
   // 더보기 버튼 핸들러
-  const loadMoreGroups = () => {
+  const loadMoreMemories = () => {
     if (currentPage < totalPages) {
-      // 현재 페이지가 총 페이지 수보다 작은 경우
       setCurrentPage((prevPage) => prevPage + 1); // 다음 페이지로 증가
     }
   };
@@ -92,12 +91,12 @@ const PublicGroups = () => {
   const handleSortChange = (newSortBy) => {
     setSortBy(newSortBy);
     setCurrentPage(1); // 정렬 기준 변경 시 첫 페이지로 돌아가도록 설정
-    setVisibleGroups(16); // 정렬 기준 변경 시 visibleGroups 초기화
+    setVisibleMemories(16); // 정렬 기준 변경 시 visibleMemories 초기화
   };
 
-  // 그룹 만들기 버튼 클릭 핸들러
-  const groupMakeButtonClick = () => {
-    navigate("/groupInsert");
+  // 추억 올리기 버튼 클릭 핸들러
+  const addMemoryButtonClick = () => {
+    navigate(`/memoryInsert/${groupId}`); // 그룹 ID를 전달하여 추억 올리기 페이지로 이동
   };
 
   if (loading) return <div>로딩 중...</div>;
@@ -105,27 +104,29 @@ const PublicGroups = () => {
 
   return (
     <>
-      <Header />
-
-      <div className="create-group-button-container">
-        <Button text="그룹만들기" size="M" onClick={groupMakeButtonClick} />
+      <div className="memories-header">
+        <div></div>
+        <div className="memories-header__title">추억 목록</div>
+        <div className="create-memory-button-container">
+          <Button text="추억 올리기" size="M" onClick={addMemoryButtonClick} />
+        </div>
       </div>
 
       <div className="filter-components">
         <Tab onSelect={handleTabSelect} selectedTab={selectedTab} />
-        <Search label="그룹" handleSearch={handleSearch} />
+        <Search label="추억" handleSearch={handleSearch} />
         <Dropdown onChange={handleSortChange} />
       </div>
 
-      <GroupCardGrid
-        groups={groupsData}
-        visibleGroups={visibleGroups}
+      <MemoryCardGrid
+        memories={memoriesData} // 메모리 데이터
+        visibleMemories={visibleMemories}
         selectedTab={selectedTab}
         loading={loading}
       />
 
       {currentPage < totalPages && (
-        <button className="load-more-button" onClick={loadMoreGroups}>
+        <button className="load-more-button" onClick={loadMoreMemories}>
           더보기
         </button>
       )}
@@ -133,4 +134,4 @@ const PublicGroups = () => {
   );
 };
 
-export default PublicGroups;
+export default Memories;
