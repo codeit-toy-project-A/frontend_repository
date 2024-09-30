@@ -1,18 +1,31 @@
+// 그룹 카드 목록 컴포넌트
+
 import "./GroupCardGrid.css";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import GroupCard from "./GroupCard";
 import Button from "../common/Button";
 
-const GroupCardGrid = ({ groups, visibleGroups, selectedTab }) => {
+const GroupCardGrid = ({ groups, visibleGroups, selectedTab, loading }) => {
   const navigate = useNavigate();
+
+  const handleCardClick = (group) => {
+    console.log(group.isPublic);
+    if (group.isPublic) {
+      // 공개 그룹이면 바로 그룹 상세 페이지로 이동
+      navigate(`/groupInfo/${group.id}`);
+    } else {
+      // 비공개 그룹이면 검증 페이지로 이동
+      navigate(`/privateGroupAccess/${group.id}`);
+    }
+  };
 
   const groupMakeButtonClick = () => {
     navigate("/groupInsert");
   };
 
   const noGroupsMessageVisible =
-    selectedTab === "public" && groups.length === 0;
+    selectedTab === "public" && groups.length === 0 && !loading;
 
   return (
     <div className="group-card-grid">
@@ -45,21 +58,21 @@ const GroupCardGrid = ({ groups, visibleGroups, selectedTab }) => {
           />
         </div>
       ) : (
-        groups
-          .slice(0, visibleGroups)
-          .map((group, index) => (
+        groups.slice(0, visibleGroups).map((group, index) => (
+          <div key={group.id} onClick={() => handleCardClick(group)}>
             <GroupCard
               key={index}
               imageUrl={group.imageUrl}
-              dDay={group.dDay}
+              createdAt={group.createdAt}
               isPublic={group.isPublic}
-              title={group.title}
-              description={group.description}
-              badges={group.badges}
-              memories={group.memories}
-              likes={group.likes}
+              name={group.name}
+              introduction={group.introduction}
+              badgeCount={group.badgeCount}
+              postCount={group.postCount}
+              likeCount={group.likeCount}
             />
-          ))
+          </div>
+        ))
       )}
     </div>
   );

@@ -1,0 +1,117 @@
+{
+  "currentPage": 1,
+  "totalPages": 5,
+  "totalItemCount": 50,
+  "data": [
+    {
+      "id": 1,
+      "name": "개발자 커뮤니티",
+      "imageUrl": "https://example.com/image1.jpg",
+      "isPublic": false,
+      "likeCount": 12,
+      "badgeCount": 3,
+      "postCount": 20,
+      "createdAt": "2024-02-22T07:47:49.803Z",
+      "introduction": "프로그래밍 관련 정보를 공유하는 커뮤니티입니다."
+    },
+    {
+      "id": 2,
+      "name": "디자인 모임",
+      "imageUrl": "https://example.com/image2.jpg",
+      "isPublic": true,
+      "likeCount": 8,
+      "badgeCount": 5,
+      "postCount": 15,
+      "createdAt": "2024-02-22T07:47:49.803Z",
+      "introduction": "디자인 트렌드와 팁을 공유하는 그룹입니다."
+    },
+    {
+      "id": 3,
+      "name": "마케팅 전략",
+      "imageUrl": "https://example.com/image3.jpg",
+      "isPublic": true,
+      "likeCount": 10,
+      "badgeCount": 4,
+      "postCount": 25,
+      "createdAt": "2024-02-22T07:47:49.803Z",
+      "introduction": "최신 마케팅 전략을 논의하는 그룹입니다."
+    },
+    {
+      "id": 4,
+      "name": "운동과 건강",
+      "imageUrl": "https://example.com/image4.jpg",
+      "isPublic": true,
+      "likeCount": 7,
+      "badgeCount": 2,
+      "postCount": 10,
+      "createdAt": "2024-02-22T07:47:49.803Z",
+      "introduction": "운동과 건강을 주제로 한 커뮤니티입니다."
+    },
+    {
+      "id": 5,
+      "name": "여행 사진 공유",
+      "imageUrl": "https://example.com/image5.jpg",
+      "isPublic": true,
+      "likeCount": 15,
+      "badgeCount": 1,
+      "postCount": 8,
+      "createdAt": "2024-02-22T07:47:49.803Z",
+      "introduction": "여행 중 찍은 사진을 공유하는 그룹입니다."
+    },
+    {
+      "id": 6,
+      "name": "음악 애호가",
+      "imageUrl": "https://example.com/image6.jpg",
+      "isPublic": true,
+      "likeCount": 9,
+      "badgeCount": 6,
+      "postCount": 12,
+      "createdAt": "2024-02-22T07:47:49.803Z",
+      "introduction": "음악을 사랑하는 사람들의 모임입니다."
+    },
+    {
+      "id": 7,
+      "name": "요리 레시피 공유",
+      "imageUrl": "https://example.com/image7.jpg",
+      "isPublic": true,
+      "likeCount": 5,
+      "badgeCount": 2,
+      "postCount": 18,
+      "createdAt": "2024-02-22T07:47:49.803Z",
+      "introduction": "맛있는 요리 레시피를 공유하는 그룹입니다."
+    },
+    {
+      "id": 8,
+      "name": "독서 클럽",
+      "imageUrl": "https://example.com/image8.jpg",
+      "isPublic": true,
+      "likeCount": 11,
+      "badgeCount": 3,
+      "postCount": 30,
+      "createdAt": "2024-02-22T07:47:49.803Z",
+      "introduction": "책을 읽고 함께 이야기하는 클럽입니다."
+    },
+    {
+      "id": 9,
+      "name": "펫 사랑 모임",
+      "imageUrl": "https://example.com/image9.jpg",
+      "isPublic": true,
+      "likeCount": 4,
+      "badgeCount": 1,
+      "postCount": 9,
+      "createdAt": "2024-02-22T07:47:49.803Z",
+      "introduction": "애완동물을 사랑하는 사람들의 모임입니다."
+    },
+    {
+      "id": 10,
+      "name": "테크 스타트업",
+      "imageUrl": "https://example.com/image10.jpg",
+      "isPublic": true,
+      "likeCount": 6,
+      "badgeCount": 4,
+      "postCount": 14,
+      "createdAt": "2024-02-22T07:47:49.803Z",
+      "introduction": "스타트업과 관련된 이야기를 나누는 그룹입니다."
+    }
+  ]
+}

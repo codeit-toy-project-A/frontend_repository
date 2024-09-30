@@ -12,7 +12,6 @@ const Search = ({ label, handleSearch }) => {
   const handleInputChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    handleSearch(query);
   };
 
   const handleSubmit = (e) => {

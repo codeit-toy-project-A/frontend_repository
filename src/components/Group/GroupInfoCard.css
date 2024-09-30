@@ -1,0 +1,88 @@
+.groupDetails {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.groupDetails__image {
+  flex: 1;
+  max-width: 300px;
+  margin-right: 20px;
+}
+
+.groupDetails__image > img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.groupDetails__info {
+  flex: 2;
+}
+
+.groupDetails__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.groupDetails__dDay {
+  margin-right: 20px;
+}
+
+.groupDetails__visibility {
+  color: #aaa;
+}
+
+.groupDetails__bold {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.groupDetails__title {
+  font-size: 25px;
+  margin-right: 40px;
+}
+
+.groupDetails__stats {
+  font-size: 1rem;
+}
+
+.groupDetails__description {
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.groupDetails__badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.groupDetails__buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.groupDetails__buttons > button {
+  border: none;
+  background-color: #ffffff;
+}
+
+.groupDetails__buttons__delete {
+  color: #aaa;
+}
+
+.groupDetails__badgeTitle {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.groupDetails__badgeBtn {
+  display: flex;
+  justify-content: space-between;
+}

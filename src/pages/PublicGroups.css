@@ -3,10 +3,10 @@ body {
 }
 
 .create-group-button-container {
-  position: absolute; /* Fixes the button in the viewport */
-  top: 30px; /* Distance from the top */
-  right: 250px; /* Distance from the right */
-  z-index: 1000; /* Ensures the button is above other elements */
+  position: absolute;
+  top: 30px;
+  right: 250px;
+  z-index: 1000;
 }
 
 .filter-components {

@@ -1,15 +1,17 @@
+// 그룹 카드
+
 import React from "react";
 import "./GroupCard.css"; // 스타일은 따로 CSS 파일로 관리
 
 const GroupCard = ({
   imageUrl,
-  dDay,
+  createdAt,
   isPublic,
-  title,
-  description,
-  badges,
-  memories,
-  likes,
+  name,
+  introduction,
+  badgeCount,
+  postCount,
+  likeCount,
 }) => {
   return (
     <div className={`group-card ${isPublic ? "public" : "private"}`}>
@@ -18,26 +20,28 @@ const GroupCard = ({
       )}
       <div className="group-info">
         <div className="group-meta">
-          <span className="d-day">D+{dDay}</span>
+          <span className="created-at">
+            {new Date(createdAt).toLocaleDateString()}
+          </span>
           <span className="between-line">|</span>
           <span className="public-status">{isPublic ? "공개" : "비공개"}</span>
         </div>
-        <h2 className="group-title">{title}</h2>
-        {isPublic && <p className="group-description">{description}</p>}
+        <h2 className="group-title">{name}</h2>
+        {isPublic && <p className="group-description">{introduction}</p>}
         <div className="group-stats">
           {isPublic && (
             <div className="stat-item">
               <span className="stat-label">획득 배지</span>
-              <span className="stat-value">{badges}</span>
+              <span className="stat-value">{badgeCount}</span>
             </div>
           )}
           <div className="stat-item">
-            <span className="stat-label">추억</span>
-            <span className="stat-value">{memories}</span>
+            <span className="stat-label">게시글 수</span>
+            <span className="stat-value">{postCount}</span>
           </div>
           <div className="stat-item">
             <span className="stat-label">그룹 공감</span>
-            <span className="stat-value">{likes}</span>
+            <span className="stat-value">{likeCount}</span>
           </div>
         </div>
       </div>
