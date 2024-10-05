@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fafafa;
+  height: 100vh;
+  position: relative;
+}
+
+.not-found-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 411px; /* 아래에서 411px 떨어지도록 설정 */
+}

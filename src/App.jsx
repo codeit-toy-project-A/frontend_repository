@@ -4,6 +4,7 @@ import PublicGroups from "./pages/PublicGroups";
 import GroupInsert from "./pages/GroupInsert";
 import GroupInfo from "./pages/GroupInfo";
 import PrivateGroupAccess from "./pages/PrivateGroupAccess";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           path="/privateGroupAccess/:id"
           element={<PrivateGroupAccess />}
         />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );
