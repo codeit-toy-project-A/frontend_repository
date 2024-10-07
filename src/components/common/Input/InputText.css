@@ -1,0 +1,21 @@
+.input-text-container {
+  margin-bottom: 1rem;
+}
+
+.input-text-container .input-text {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-family: inherit; /* 또는 원하는 폰트 */
+  font-size: 16px; /* 필요한 폰트 크기 */
+}
+
+.input-text-container .error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+}

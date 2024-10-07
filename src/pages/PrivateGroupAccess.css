@@ -1,0 +1,37 @@
+/* 페이지 전체 레이아웃 */
+.privateGroupAccess {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 전체 화면 높이를 사용 */
+}
+
+/* 가운데 정렬을 위한 컨테이너 */
+.privateGroupAccess__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1; /* 화면 중앙에 위치시키기 위해 flex-grow 사용 */
+  padding: 20px;
+}
+
+/* 제목 스타일 */
+.privateGroupAccess__container h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* 설명 문구 스타일 */
+.privateGroupAccess__container p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* 입력 필드와 버튼 사이의 간격 */
+.privateGroupAccess__container .inputText,
+.privateGroupAccess__container .button {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 300px; /* 입력 필드와 버튼의 최대 너비 제한 */
+}
