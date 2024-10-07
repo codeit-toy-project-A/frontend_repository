@@ -1,15 +1,12 @@
 // 그룹 상세 페이지 하단 - 해당 그룹의 추억 목록 & 목록 검색 기능 포함하는 컴포넌트
 
 import React, { useState, useEffect } from "react";
-import Header from "../../components/common/Header";
 import Search from "../../components/common/Search";
 import Tab from "../../components/Group/Tab";
 import Dropdown from "../../components/Group/Dropdown";
 import MemoryCardGrid from "./MemoryCardGrid";
 import Button from "../common/Button";
 import { useNavigate, useParams } from "react-router-dom";
-
-import mockData from "../../mock/MemoriesMockData.json";
 import "./Memories.css";
 
 const Memories = () => {
@@ -22,7 +19,7 @@ const Memories = () => {
   const [error, setError] = useState(null);
 
   const [visibleMemories, setVisibleMemories] = useState(16);
-  const [selectedTab, setSelectedTab] = useState("public");
+  const [activeTab, setActiveTab] = useState("public");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("latest");
   const [isPublic, setIsPublic] = useState(true);
@@ -49,11 +46,8 @@ const Memories = () => {
       setError(err.message);
 
       // API 호출 실패 시 mockData 사용
-      console.log(
-        "서버에서 데이터를 불러오지 못했습니다. mockData를 사용합니다."
-      );
-      setMemoriesData(mockData.data);
-      setTotalPages(mockData.totalPages || 1);
+      console.log("서버에서 데이터를 불러오지 못했습니다.");
+      setMemoriesData([]);
     } finally {
       setLoading(false);
     }
@@ -75,7 +69,7 @@ const Memories = () => {
   const handleTabSelect = (tab) => {
     const publicStatus = tab === "public";
     setIsPublic(publicStatus);
-    setSelectedTab(tab);
+    setActiveTab(tab);
     setCurrentPage(1); // 탭 변경 시 첫 페이지로 돌아가도록 설정
     setVisibleMemories(16); // 탭 변경 시 visibleMemories 초기화
   };
@@ -113,7 +107,7 @@ const Memories = () => {
       </div>
 
       <div className="filter-components">
-        <Tab onSelect={handleTabSelect} selectedTab={selectedTab} />
+        <Tab onSelect={handleTabSelect} activeTab={activeTab} />
         <Search label="추억" handleSearch={handleSearch} />
         <Dropdown onChange={handleSortChange} />
       </div>
@@ -121,7 +115,7 @@ const Memories = () => {
       <MemoryCardGrid
         memories={memoriesData} // 메모리 데이터
         visibleMemories={visibleMemories}
-        selectedTab={selectedTab}
+        selectedTab={activeTab}
         loading={loading}
       />
 

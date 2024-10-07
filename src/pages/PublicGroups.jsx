@@ -11,7 +11,6 @@ import Button from "../components/common/Button";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PublicGroups.css";
-import mockData from "../mock/PublicGroupsMockData.json";
 
 const PublicGroups = () => {
   const navigate = useNavigate();
@@ -22,12 +21,12 @@ const PublicGroups = () => {
   const [error, setError] = useState(null);
 
   const [visibleGroups, setVisibleGroups] = useState(16);
-  const [selectedTab, setSelectedTab] = useState("public");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("latest");
   const [isPublic, setIsPublic] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [activeTab, setActiveTab] = useState("public");
 
   // API 호출 함수
   const fetchGroups = async () => {
@@ -58,17 +57,34 @@ const PublicGroups = () => {
     }
   };
 
+  // 상태 초기화 함수
+  const resetStates = () => {
+    setVisibleGroups(16);
+    setActiveTab("public");
+    setSearchQuery("");
+    setSortBy("latest");
+    setIsPublic(true);
+    setCurrentPage(1);
+  };
+
+  // Header 클릭 핸뎔르
+  const handleHeaderClick = () => {
+    resetStates(); // 상태 초기화
+    fetchGroups(); // API 호출
+  };
+
   // 검색 핸들러
   const handleSearch = (query) => {
+    console.log("검색:", query);
     setSearchQuery(query);
   };
 
   // 탭 전환 핸들러
   const handleTabSelect = (tab) => {
-    const publicStatus = tab === "public";
-    setIsPublic(publicStatus);
-    setSelectedTab(tab);
+    setActiveTab(tab);
+    setIsPublic(tab === "public");
     setCurrentPage(1);
+    setVisibleGroups(16);
   };
 
   // 더보기 버튼 핸들러
@@ -101,14 +117,14 @@ const PublicGroups = () => {
 
   return (
     <>
-      <Header />
+      <Header onClick={handleHeaderClick} />
 
       <div className="create-group-button-container">
         <Button text="그룹만들기" size="M" onClick={groupMakeButtonClick} />
       </div>
 
       <div className="filter-components">
-        <Tab onSelect={handleTabSelect} selectedTab={selectedTab} />
+        <Tab onSelect={handleTabSelect} activeTab={activeTab} />
         <Search label="그룹" handleSearch={handleSearch} />
         <Dropdown onChange={handleSortChange} selectedSortBy={sortBy} />
       </div>
@@ -116,7 +132,7 @@ const PublicGroups = () => {
       <GroupCardGrid
         groups={groupsData}
         visibleGroups={visibleGroups}
-        selectedTab={selectedTab}
+        selectedTab={activeTab}
         loading={loading}
       />
 

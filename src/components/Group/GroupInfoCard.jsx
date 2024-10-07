@@ -32,9 +32,10 @@ const GroupInfoCard = () => {
 
   // 그룹 데이터 가져오기
   const fetchGroupData = async () => {
+    console.log("Fetching data for group ID:", groupId);
     try {
       const response = await fetch(
-        `https://project-zogakzip-fe.vercel.app/yeryung/groups/${groupId}`
+        `https://backend-repository-t82r.onrender.com/api/groups/${groupId}`
       );
       if (!response.ok) {
         throw new Error("그룹 정보를 불러오는 데 실패했습니다.");
