@@ -1,24 +1,31 @@
+// Dropdown.jsx
 import "./Dropdown.css";
 import React, { useState } from "react";
 
-const Dropdown = ({ onSelect }) => {
+const Dropdown = ({ onChange, selectedSortBy }) => {
+  // selectedSortBy 추가
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("공감순");
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleSelect = (option) => {
-    setSelectedOption(option);
     setIsOpen(false); // 선택 후 드롭다운 닫기
-    onSelect(option); // 부모 컴포넌트에 선택된 값 전달
+    onChange(option); // 부모 컴포넌트에 선택된 값 전달
+  };
+
+  const sortOptions = {
+    latest: "최신 순",
+    mostPosted: "게시글 순",
+    mostLiked: "좋아요 순",
+    mostBadge: "배지 순",
   };
 
   return (
     <div className="dropdown-container">
       <div className="dropdown-header" onClick={toggleDropdown}>
-        {selectedOption}{" "}
+        {sortOptions[selectedSortBy]}
         <span className="dropdown-icon">
           {isOpen ? (
             <svg
@@ -51,9 +58,10 @@ const Dropdown = ({ onSelect }) => {
       </div>
       {isOpen && (
         <ul className="dropdown-menu">
-          <li onClick={() => handleSelect("최신순")}>최신순</li>
-          <li onClick={() => handleSelect("댓글순")}>댓글순</li>
-          <li onClick={() => handleSelect("공감순")}>공감순</li>
+          <li onClick={() => handleSelect("latest")}>최신 순</li>
+          <li onClick={() => handleSelect("mostPosted")}>게시글 순</li>
+          <li onClick={() => handleSelect("mostLiked")}>좋아요 순</li>
+          <li onClick={() => handleSelect("mostBadge")}>배지 순</li>
         </ul>
       )}
     </div>
