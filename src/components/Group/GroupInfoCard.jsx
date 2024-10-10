@@ -130,10 +130,7 @@ const GroupInfoCard = () => {
             ))}
           </div>
           <div className="groupDetails__like">
-            <Like
-              onClick={handleSendEmpathy}
-              className="groupDetails__empathyButton"
-            />
+            <Like groupId={groupId} className="groupDetails__empathyButton" />
           </div>
         </div>
       </div>

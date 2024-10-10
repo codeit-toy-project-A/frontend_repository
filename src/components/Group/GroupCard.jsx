@@ -32,16 +32,16 @@ const GroupCard = ({
           {isPublic && (
             <div className="stat-item">
               <span className="stat-label">획득 배지</span>
-              <span className="stat-value">{badgeCount}</span>
+              <span className="stat-value">{badgeCount || 0}</span>
             </div>
           )}
           <div className="stat-item">
             <span className="stat-label">게시글 수</span>
-            <span className="stat-value">{postCount}</span>
+            <span className="stat-value">{postCount || 0}</span>
           </div>
           <div className="stat-item">
             <span className="stat-label">그룹 공감</span>
-            <span className="stat-value">{likeCount}</span>
+            <span className="stat-value">{likeCount || 0}</span>
           </div>
         </div>
       </div>
