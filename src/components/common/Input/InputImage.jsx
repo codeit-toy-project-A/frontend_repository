@@ -1,20 +1,50 @@
 // 이미지 파일만 입력받는 input 컴포넌트
-
 // onChange: 선택한 파일의 이름을 부모 컴포넌트에 전달하는 함수
+// parentValue:
 
 import "./InputImage.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const InputImage = ({ onChange }) => {
-  const [fileName, setFileName] = useState("");
+const InputImage = ({ onChange, parentValue }) => {
+  const [fileName, setFileName] = useState(parentValue || "");
   const [state, setState] = useState("default");
 
-  const handleFileChange = (e) => {
+  useEffect(() => {
+    setFileName(parentValue || "");
+  }, [parentValue]);
+
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       setFileName(file.name);
-      onChange(file.name); // 파일 이름을 부모 컴포넌트에 전달
       setState("filled");
+
+      // 이미지 파일을 서버로 업로드
+      const formData = new FormData();
+      formData.append("image", file);
+
+      try {
+        const response = await fetch(
+          "https://backend-repository-t82r.onrender.com/api/image",
+          {
+            // API URL 입력
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("이미지 URL:", data.imageUrl);
+          onChange(data.imageUrl); // 이미지 URL을 부모 컴포넌트에 전달
+        } else {
+          console.error("이미지 업로드 실패");
+          onChange(""); // 실패 시 빈 문자열 전달
+        }
+      } catch (error) {
+        console.error("서버 오류:", error);
+        onChange(""); // 에러 발생 시 빈 문자열 전달
+      }
     } else {
       setFileName("");
       onChange(""); // 파일이 선택되지 않으면 빈 문자열 전달

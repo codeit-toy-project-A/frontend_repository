@@ -5,12 +5,16 @@
 // onChange: 입력 값이 변경될 때 호출되는 함수
 
 import "./InputText.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const InputText = ({ label, onChange }) => {
-  const [value, setValue] = useState("");
+const InputText = ({ label, onChange, parentValue }) => {
+  const [value, setValue] = useState(parentValue || "");
   const [error, setError] = useState("");
   const [state, setState] = useState("default");
+
+  useEffect(() => {
+    setValue(parentValue || "");
+  }, [parentValue]);
 
   const handleChange = (e) => {
     const inputValue = e.target.value;

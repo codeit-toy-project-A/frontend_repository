@@ -4,11 +4,15 @@
 // onChange: 입력 값이 변경될 때 호출되는 함수
 
 import "./InputBox.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const InputBox = ({ label, onChange }) => {
-  const [value, setValue] = useState("");
+const InputBox = ({ label, onChange, parentValue }) => {
+  const [value, setValue] = useState(parentValue || "");
   const [state, setState] = useState("default");
+
+  useEffect(() => {
+    setValue(parentValue || "");
+  }, [parentValue]);
 
   const handleChange = (e) => {
     const inputValue = e.target.value;

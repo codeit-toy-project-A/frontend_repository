@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const GroupInsert = () => {
   const [groupName, setGroupName] = useState("");
-  const [groupImage, setGroupImage] = useState(null); // Image URL or File
+  const [groupImage, setGroupImage] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,34 +23,58 @@ const GroupInsert = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent page reload
 
     const groupData = {
-      groupName,
-      groupImage,
-      groupDescription,
+      name: groupName,
       password,
+      imageUrl: groupImage,
+      isPublic: true,
+      introduction: groupDescription,
     };
 
     console.log("그룹 데이터:", groupData);
-    // 서버로 전송 작업 수행 -> api 연결하기
 
-    if (groupName && groupImage && groupDescription && password) {
-      setIsSuccess(true);
-      setModalInfo({
-        title: "그룹 만들기 성공",
-        text: "그룹이 성공적으로 등록되었습니다",
-      });
-    } else {
+    try {
+      const response = await fetch(
+        "https://backend-repository-t82r.onrender.com/api/groups",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(groupData),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("등록 성공:", data);
+        setIsSuccess(true);
+        setModalInfo({
+          title: "그룹 만들기 성공",
+          text: "그룹이 성공적으로 등록되었습니다",
+        });
+      } else {
+        const errorData = await response.json();
+        console.error("등록 실패:", errorData);
+        setIsSuccess(false);
+        setModalInfo({
+          title: "그룹 만들기 실패",
+          text: errorData.message || "그룹 등록에 실패하였습니다",
+        });
+      }
+    } catch (error) {
+      console.error("서버 오류:", error);
       setIsSuccess(false);
       setModalInfo({
         title: "그룹 만들기 실패",
-        text: "그룹 등록에 실패하였습니다",
+        text: "서버와의 연결에 실패하였습니다",
       });
+    } finally {
+      setIsModalOpen(true);
     }
-
-    setIsModalOpen(true);
   };
 
   const handleModalClose = () => {
@@ -71,7 +95,7 @@ const GroupInsert = () => {
             value={groupName}
             onChange={setGroupName} // e.target.value 없이 직접 상태 업데이트
           />
-          <InputImage onChange={(image) => setGroupImage(image)} />
+          <InputImage onChange={(url) => setGroupImage(url)} />
           <InputBox
             label="그룹 소개"
             value={groupDescription}

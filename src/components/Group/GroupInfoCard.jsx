@@ -20,14 +20,14 @@ const GroupInfoCard = () => {
 
   const mockData = {
     id: 123,
-    name: "그룹 이름",
+    name: "그룹 이름 목데이터",
     imageUrl: "/path/to/mock-image.jpg",
     isPublic: true,
     likeCount: 10,
     badges: ["badge1", "badge2"],
     postCount: 30,
     createdAt: "2024-02-22T07:47:49.803Z",
-    introduction: "그룹 설명입니다.",
+    introduction: "목데이터 그룹 설명입니다.",
   };
 
   // 그룹 데이터 가져오기
