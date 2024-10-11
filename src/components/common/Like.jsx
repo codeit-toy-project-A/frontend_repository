@@ -1,10 +1,11 @@
 // 공감 보내는 버튼 컴포넌트
 // groupId 또는 postId를 받아서, 그룹 / 게시물 공감 둘 다 활용 가능
+// onLikeSuccress 라는 콜백함수 추가해, 공감 요청이 성공하면 부모 컴포넌트로 콜백 전달
 
 import "./Like.css";
 import favicon from "../../assets/favicon.png";
 
-const Like = ({ groupId, postId }) => {
+const Like = ({ groupId, postId, onLikeSuccess }) => {
   // 그룹 공감하기
   const sendGroupEmpathy = async () => {
     try {
@@ -18,6 +19,9 @@ const Like = ({ groupId, postId }) => {
       if (response.ok) {
         const data = await response.json();
         console.log(data.message);
+        if (onLikeSuccess) {
+          onLikeSuccess(); // 공감 성공 시 콜백 호출
+        }
       } else {
         const errorData = await response.json();
         alert(errorData.message);
@@ -40,7 +44,9 @@ const Like = ({ groupId, postId }) => {
 
       if (response.ok) {
         const data = await response.json();
-        alert(data.message);
+        if (onLikeSuccess) {
+          onLikeSuccess(); // 공감 성공 시 콜백 호출
+        }
       } else {
         const errorData = await response.json();
         alert(errorData.message);

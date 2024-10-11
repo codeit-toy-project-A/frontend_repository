@@ -31,13 +31,14 @@ const Memories = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://project-zogakzip-fe.vercel.app/api/groups/${groupId}/posts?page=${currentPage}&pageSize=${visibleMemories}&sortBy=${sortBy}&keyword=${searchQuery}&isPublic=${isPublic}`
+        `https://backend-repository-t82r.onrender.com/api/groups/${groupId}/posts?page=${currentPage}&pageSize=${visibleMemories}&sortBy=${sortBy}&keyword=${searchQuery}&isPublic=${isPublic}`
       );
 
       if (!response.ok) {
         throw new Error("데이터를 불러오는 중 오류가 발생했습니다.");
       }
       const data = await response.json();
+      console.log("추억 목록:", data, groupId);
       setMemoriesData(data.data);
       setTotalPages(data.totalPages);
       setError(null);

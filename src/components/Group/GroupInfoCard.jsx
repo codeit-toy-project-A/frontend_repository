@@ -44,10 +44,6 @@ const GroupInfoCard = () => {
     fetchGroupData(); // 컴포넌트가 마운트될 때 데이터 가져오기
   }, [groupId]);
 
-  const handleSendEmpathy = () => {
-    console.log("공감 보내기 클릭");
-  };
-
   // 날짜를 D-day + 형식으로 변환하는 함수
   const getDDayFormat = (createdAt) => {
     const createdDate = new Date(createdAt);
@@ -130,7 +126,11 @@ const GroupInfoCard = () => {
             ))}
           </div>
           <div className="groupDetails__like">
-            <Like groupId={groupId} className="groupDetails__empathyButton" />
+            <Like
+              groupId={groupId}
+              className="groupDetails__empathyButton"
+              onLikeSuccess={fetchGroupData}
+            />
           </div>
         </div>
       </div>
