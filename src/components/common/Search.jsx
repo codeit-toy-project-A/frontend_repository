@@ -17,7 +17,6 @@ const Search = ({ label, handleSearch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSearch(searchQuery);
-    setSearchQuery("");
   };
 
   return (

@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PublicGroups />} />
         <Route path="/groupInsert" element={<GroupInsert />} />
-        <Route path="/groupInfo/:id" element={<GroupInfo />} />
+        <Route path="/groupInfo/:groupId" element={<GroupInfo />} />
         <Route
           path="/privateGroupAccess/:id"
           element={<PrivateGroupAccess />}

@@ -17,28 +17,59 @@ const GroupEditModal = ({ isOpen, onClose, groupId }) => {
   const [error, setError] = useState("");
   const modalRef = useRef(null);
 
+  // 그룹 정보 불러오기
+  useEffect(() => {
+    const fetchGroupData = async () => {
+      if (groupId && isOpen) {
+        try {
+          const response = await fetch(
+            `https://backend-repository-t82r.onrender.com/api/groups/${groupId}`
+          );
+          const data = await response.json();
+          console.log(data);
+
+          if (response.ok) {
+            setName(data.name);
+            setImageUrl(data.imageUrl);
+            setIntroduction(data.introduction);
+            setIsPublic(data.isPublic);
+          } else {
+            setError("그룹 정보를 불러오는 데 실패했습니다.");
+          }
+        } catch (error) {
+          setError("서버 오류가 발생했습니다. 다시 시도해 주세요.");
+        }
+      }
+    };
+
+    fetchGroupData();
+  }, [groupId, isOpen]);
+
   const handleEdit = async () => {
-    if (!name || !imageUrl || !password || !introduction) {
+    if (!name || !password || !introduction) {
       setError("모든 필드를 입력해야 합니다.");
       return;
     }
 
     try {
-      const response = await fetch(`/api/groups/${groupId}/edit`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          password,
-          imageUrl,
-          isPublic,
-          introduction,
-        }),
-      });
+      const response = await fetch(
+        `https://backend-repository-t82r.onrender.com/api/groups/${groupId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            password,
+            imageUrl,
+            isPublic,
+            introduction,
+          }),
+        }
+      );
 
-      const data = await response.json();
+      console.log(response);
 
       if (response.ok) {
         alert("그룹 수정 성공!");
@@ -90,13 +121,22 @@ const GroupEditModal = ({ isOpen, onClose, groupId }) => {
     <div className="editModal-overlay">
       <div className="modal-content" ref={modalRef}>
         <h1>그룹 수정</h1>
-        <InputText label="그룹명" onChange={setName} />
-        <InputImage label="대표 이미지" onChange={setImageUrl} />
-        <InputBox label="그룹 소개" onChange={setIntroduction} />
+        <InputText label="그룹명" onChange={setName} parentValue={name} />
+        <InputImage
+          label="대표 이미지"
+          onChange={setImageUrl}
+          parentValue={imageUrl}
+        />
+        <InputBox
+          label="그룹 소개"
+          onChange={setIntroduction}
+          parentValue={introduction}
+        />
         <InputToggle
           label="공개 여부"
+          toggleName={"공개"}
           isChecked={isPublic}
-          onToggle={() => setIsPublic(!isPublic)}
+          onChange={setIsPublic}
         />
         <InputText label="수정 권한 인증" onChange={setPassword} />
         {error && <p className="error-message">{error}</p>}

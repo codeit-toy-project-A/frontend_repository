@@ -1,12 +1,9 @@
 import "./InputToggle.css";
 import { useState } from "react";
 
-const InputToggle = ({ label, toggleName, onChange }) => {
-  const [isChecked, setIsChecked] = useState(false);
-
+const InputToggle = ({ label, toggleName, isChecked, onChange }) => {
   const handleToggleChange = () => {
     const newValue = !isChecked;
-    setIsChecked(newValue);
     onChange(newValue); // 부모 컴포넌트에 새로운 상태 전달
   };
 

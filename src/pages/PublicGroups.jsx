@@ -11,7 +11,6 @@ import Button from "../components/common/Button";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PublicGroups.css";
-import mockData from "../mock/PublicGroupsMockData.json";
 
 const PublicGroups = () => {
   const navigate = useNavigate();
@@ -22,62 +21,70 @@ const PublicGroups = () => {
   const [error, setError] = useState(null);
 
   const [visibleGroups, setVisibleGroups] = useState(16);
-  const [selectedTab, setSelectedTab] = useState("public");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("latest");
   const [isPublic, setIsPublic] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [activeTab, setActiveTab] = useState("public");
 
   // API 호출 함수
   const fetchGroups = async () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://project-zogakzip-fe.vercel.app/groups?page=${currentPage}&pageSize=${visibleGroups}&sortBy=${sortBy}&keyword=${searchQuery}&isPublic=${isPublic}`
+        `https://backend-repository-t82r.onrender.com/api/groups?page=${currentPage}&pageSize=${visibleGroups}&sortBy=${sortBy}&keyword=${searchQuery}&isPublic=${isPublic}`
       );
+      console.log("API 호출 URL:", response); // 로그로 확인
 
       if (!response.ok) {
         throw new Error("데이터를 불러오는 중 오류가 발생했습니다.");
       }
       const data = await response.json();
+      console.log("서버 응답 데이터:", data.data); // 응답 데이터 확인
+
       setGroupsData(data.data);
       setTotalPages(data.totalPages);
       setError(null);
     } catch (err) {
       console.error(err.message);
       setError(err.message);
-
-      // API 호출 실패 시 mockData 사용
-      console.log(
-        "서버에서 데이터를 불러오지 못했습니다. mockData를 사용합니다."
-      );
-      setGroupsData(mockData.data);
-      setTotalPages(mockData.totalPages || 1);
+      // 데이터 빈 상태로 두기
+      setGroupsData([]);
+      setTotalPages(1);
     } finally {
       setLoading(false);
     }
   };
 
-  // 컴포넌트가 마운트될 때와 검색/필터 변경 시 데이터를 다시 불러옴
-  useEffect(() => {
-    fetchGroups();
-  }, [currentPage, visibleGroups, sortBy, searchQuery, isPublic]);
+  // 상태 초기화 함수
+  const resetStates = () => {
+    setVisibleGroups(16);
+    setActiveTab("public");
+    setSearchQuery("");
+    setSortBy("latest");
+    setIsPublic(true);
+    setCurrentPage(1);
+  };
+
+  // Header 클릭 핸뎔르
+  const handleHeaderClick = () => {
+    resetStates(); // 상태 초기화
+    fetchGroups(); // API 호출
+  };
 
   // 검색 핸들러
   const handleSearch = (query) => {
+    console.log("검색:", query);
     setSearchQuery(query);
-    setCurrentPage(1); // 검색 시 첫 페이지로 돌아가도록 설정
-    setVisibleGroups(16); // 검색 시 visibleGroups 초기화
   };
 
   // 탭 전환 핸들러
   const handleTabSelect = (tab) => {
-    const publicStatus = tab === "public";
-    setIsPublic(publicStatus);
-    setSelectedTab(tab);
-    setCurrentPage(1); // 탭 변경 시 첫 페이지로 돌아가도록 설정
-    setVisibleGroups(16); // 탭 변경 시 visibleGroups 초기화
+    setActiveTab(tab);
+    setIsPublic(tab === "public");
+    setCurrentPage(1);
+    setVisibleGroups(16);
   };
 
   // 더보기 버튼 핸들러
@@ -90,9 +97,9 @@ const PublicGroups = () => {
 
   // 정렬 방식 변경 핸들러 (Dropdown과 연결)
   const handleSortChange = (newSortBy) => {
+    console.log("정렬 방식 변경됨:", newSortBy); // 로그로 확인
     setSortBy(newSortBy);
-    setCurrentPage(1); // 정렬 기준 변경 시 첫 페이지로 돌아가도록 설정
-    setVisibleGroups(16); // 정렬 기준 변경 시 visibleGroups 초기화
+    setCurrentPage(1);
   };
 
   // 그룹 만들기 버튼 클릭 핸들러
@@ -100,27 +107,32 @@ const PublicGroups = () => {
     navigate("/groupInsert");
   };
 
+  // 컴포넌트가 마운트될 때와 검색/필터 변경 시 데이터를 다시 불러옴
+  useEffect(() => {
+    fetchGroups();
+  }, [currentPage, visibleGroups, sortBy, searchQuery, isPublic]);
+
   if (loading) return <div>로딩 중...</div>;
   if (error) console.log(error);
 
   return (
     <>
-      <Header />
+      <Header onClick={handleHeaderClick} />
 
       <div className="create-group-button-container">
         <Button text="그룹만들기" size="M" onClick={groupMakeButtonClick} />
       </div>
 
       <div className="filter-components">
-        <Tab onSelect={handleTabSelect} selectedTab={selectedTab} />
+        <Tab onSelect={handleTabSelect} activeTab={activeTab} />
         <Search label="그룹" handleSearch={handleSearch} />
-        <Dropdown onChange={handleSortChange} />
+        <Dropdown onChange={handleSortChange} selectedSortBy={sortBy} />
       </div>
 
       <GroupCardGrid
         groups={groupsData}
         visibleGroups={visibleGroups}
-        selectedTab={selectedTab}
+        selectedTab={activeTab}
         loading={loading}
       />
 

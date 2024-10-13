@@ -15,6 +15,16 @@ const MemoryCardGrid = ({ memories, visibleMemories, loading }) => {
 
   const noMemoriesMessageVisible = memories.length === 0 && !loading;
 
+  // 날짜를 이쁘게 바꾸는 함수
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
     <div className="moments-card-grid">
       {" "}
@@ -62,7 +72,7 @@ const MemoryCardGrid = ({ memories, visibleMemories, loading }) => {
               imageUrl={memory.imageUrl}
               tags={memory.tags} // Adding tags prop
               location={memory.location}
-              moment={memory.moment}
+              moment={formatDate(memory.moment)}
               isPublic={memory.isPublic}
               likeCount={memory.likeCount}
               commentCount={memory.commentCount}

@@ -18,7 +18,7 @@ const PrivateGroupAccess = () => {
 
     try {
       const response = await fetch(
-        `https://project-zogakzip-fe.vercel.app/api/groups/${groupId}/access`,
+        `https://backend-repository-t82r.onrender.com/api/groups/${groupId}/access`,
         {
           method: "POST",
           headers: {
@@ -27,7 +27,6 @@ const PrivateGroupAccess = () => {
           body: JSON.stringify({ password }),
         }
       );
-
       const data = await response.json();
 
       if (response.ok) {

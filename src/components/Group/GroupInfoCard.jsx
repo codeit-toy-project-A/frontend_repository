@@ -2,48 +2,39 @@
 
 import React from "react";
 import "./GroupInfoCard.css";
-import Button from "../common/Button";
 import Badge from "../Badge/Badge";
 import Like from "../common/Like";
 import GroupEditModal from "../modal/GroupEditModal";
 import GroupDeleteModal from "../modal/GroupDeleteModal";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { getGroupBadges } from "../../util/badgeUtils";
 
 const GroupInfoCard = () => {
-  const { groupId } = useParams(); // URL에서 그룹 ID를 가져옴
-  const [group, setGroup] = useState(null); // 그룹 정보를 저장할 상태
-  const [loading, setLoading] = useState(true); // 로딩 상태
+  const { groupId } = useParams();
+  const [group, setGroup] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
-  const mockData = {
-    id: 123,
-    name: "그룹 이름",
-    imageUrl: "/path/to/mock-image.jpg",
-    isPublic: true,
-    likeCount: 10,
-    badges: ["badge1", "badge2"],
-    postCount: 30,
-    createdAt: "2024-02-22T07:47:49.803Z",
-    introduction: "그룹 설명입니다.",
-  };
-
   // 그룹 데이터 가져오기
   const fetchGroupData = async () => {
+    console.log("Fetching data for group ID:", groupId);
     try {
       const response = await fetch(
-        `https://project-zogakzip-fe.vercel.app/yeryung/groups/${groupId}`
+        `https://backend-repository-t82r.onrender.com/api/groups/${groupId}`
       );
       if (!response.ok) {
         throw new Error("그룹 정보를 불러오는 데 실패했습니다.");
       }
       const data = await response.json();
-      setGroup(data); // 받아온 데이터를 상태에 저장
+      const badges = getGroupBadges(data);
+      console.log("그룹 정보를 불러왔습니다:", data);
+      console.log("배지:", badges);
+      setGroup({ ...data, badges });
     } catch (error) {
       console.error(error.message);
-      setGroup(mockData); // 서버 실패 시 목데이터 사용
     } finally {
       setLoading(false);
     }
@@ -52,10 +43,6 @@ const GroupInfoCard = () => {
   useEffect(() => {
     fetchGroupData(); // 컴포넌트가 마운트될 때 데이터 가져오기
   }, [groupId]);
-
-  const handleSendEmpathy = () => {
-    console.log("공감 보내기 클릭");
-  };
 
   // 날짜를 D-day + 형식으로 변환하는 함수
   const getDDayFormat = (createdAt) => {
@@ -140,8 +127,9 @@ const GroupInfoCard = () => {
           </div>
           <div className="groupDetails__like">
             <Like
-              onClick={handleSendEmpathy}
+              groupId={groupId}
               className="groupDetails__empathyButton"
+              onLikeSuccess={fetchGroupData}
             />
           </div>
         </div>
